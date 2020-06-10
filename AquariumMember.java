@@ -1,43 +1,17 @@
-package com.company;
+package kz.aitu.aquarium;
 
-public  class AquariumMember {
-    private String name;
-    private int price;
-    int id;
+public  interface AquariumMember {
+    public int getPrice();
 
+    public void setPrice(int price);
+    public String getName();
 
-    protected AquariumMember(int price, String name ,  int id) {
-        this.price = price;
-        this.name = name;
-        this.id = id;
-    }
+    public void setName(String name) ;
 
-    public int getPrice() {
-        return price;
-    }
+    public int getID();
 
-    public void setPrice(int price) {
-
-        this.price = price;
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getID(){
-        return this.id;
-    }
-
-
-    @Override
-    public String toString() {
-        return "AquariumMember{ " + ", id=" + id + "price=" + name + ", name='" + price + '\'' + " }";
-    }
+    public int getCount();
+    public void setCount(int count);
+    public String getType();
 }
 
