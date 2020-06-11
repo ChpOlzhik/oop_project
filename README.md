@@ -1,2 +1,3 @@
 # oop_project
-This project is kinda Aquarium zoo shop.
+This project is Aquarium zoo shop.
+The structure of code :
