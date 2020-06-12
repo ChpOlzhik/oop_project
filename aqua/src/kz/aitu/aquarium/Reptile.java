@@ -6,13 +6,11 @@ public class Reptile implements AquariumMember {
     private int price;
     private int id;
     private int count;
-    private int maxnum;
-    public Reptile( int id , String name , int price , int maxnum ) {
+    public Reptile( int id , String name , int price , int count ) {
         this.price = price;
         this.name = name;
         this.id = id;
-        this.count = 1;
-        this.maxnum = maxnum;
+        this.count = count;
     }
 
     @Override
@@ -52,12 +50,5 @@ public class Reptile implements AquariumMember {
     public String getType() {
         return "reptile";
     }
-    @Override
-    public int getMaxnum() {
-        return maxnum;
-    }
-    @Override
-    public void setMaxnum(int maxnum) {
-        this.maxnum = maxnum;
-    }
+
 }

@@ -1,6 +1,5 @@
 package kz.aitu.aquarium;
 
-import java.net.ContentHandler;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,38 +10,18 @@ public class Application {
 
     private static MyDatabase db = new MyDatabase("oop" , "root" , "123456");
     private static   Connection conn = MyDatabase.getConn();
-    private static Container basket = new Container();
+    private static Basket basket = new Basket();
+    private static Shop shop = new Shop();
     private static Scanner sc = new Scanner(System.in);
 
-    private static void showAssortment(String type) throws SQLException {
-        System.out.println();
-        Statement st = conn.createStatement();
-        String sql = "SELECT * FROM members";
-        if(type == "fish" ) sql = "SELECT  * FROM members WHERE type='fish'";
-        if(type == "accessory" ) sql = "SELECT  * FROM members WHERE type='accessory'";
-        if(type == "reptile") sql = "SELECT  * FROM members WHERE type='reptile'";
-        ResultSet rs = st.executeQuery(sql);
-        System.out.println("id  name  price  count");
-        while(rs.next()){
-            System.out.println(
-                    rs.getInt("id") + " "
-                            + rs.getString("name") + " "
-                            + rs.getInt("price") + " "
-                            + rs.getInt("count")
-            );
-        }
-        st.close();
-        System.out.println();
-    }
-
-    private static void add1(String type) throws SQLException {
+    private static void add1(String type) {
         String title = type.substring(0, 1).toUpperCase() + type.substring(1);
         System.out.println("Enter id of the "+title+" to add to the basket");
         int id = sc.nextInt();
-        System.out.println(basket.addMember(id,type));
+        basket.addMember(shop.getMember(id));
     }
 
-    private static void addBasket(String type) throws SQLException {
+    private static void addBasket(String type){
         String title = type.substring(0, 1).toUpperCase() + type.substring(1);
         while(true){
             System.out.println("1-toAddToBasket\n2-toShow"+title+"\nAnything-Back");
@@ -50,7 +29,7 @@ public class Application {
             if(st == 1){
                 add1(type);
             } else if(st == 2){
-                showAssortment(type);
+                shop.show(type);
             } else break;
         }
     }
@@ -67,7 +46,7 @@ public class Application {
                 int id = sc.nextInt();
                 System.out.println("Enter amount of item");
                 int cnt = sc.nextInt();
-                System.out.println(basket.deleteMember(id,cnt));
+                basket.removeMember(id, cnt);
             } else {
                 break;
             }
@@ -80,13 +59,13 @@ public class Application {
             System.out.println("1-Fish\n2-Accessories\n3-Reptiles\n4-Basket\n5-Exit");
             int st = sc.nextInt();
             if ( st == 1){
-                showAssortment("fish");
+                shop.show("fish");
                 addBasket("fish");
             } else if( st == 2 ){
-                showAssortment("accessory");
+                shop.show("accessory");
                 addBasket("accessory");
             } else if(st == 3){
-                showAssortment("reptile");
+                shop.show("reptile");
                 addBasket("reptile");
             } else if(st == 4){
                 BasketComand();
@@ -99,6 +78,8 @@ public class Application {
     }
 
     public static void main(String[] args) throws SQLException {
+            shop.fillShop();
             CustomConsole();
+
     }
 }

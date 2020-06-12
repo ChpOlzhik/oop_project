@@ -13,8 +13,6 @@ public  interface AquariumMember {
     public int getCount();
     public void setCount(int count);
     public String getType();
-    public int getMaxnum() ;
 
-    public void setMaxnum(int maxnum) ;
 }
 
